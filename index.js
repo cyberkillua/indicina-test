@@ -36,8 +36,4 @@ app.get("/:shortCode", (req, res) => {
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 4545;
-
-app.listen(PORT, () => {
-  console.log(`🚨 Server is listening at http://localhost:${PORT}`);
-});
+export default app;
