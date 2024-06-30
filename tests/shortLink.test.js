@@ -7,7 +7,6 @@ import {
   afterEach,
 } from "@jest/globals";
 import supertest, { agent as request } from "supertest";
-import { Request, Response, NextFunction } from "express";
 import * as sinon from "sinon";
 
 import {

@@ -1,13 +1,18 @@
 const urlDatabase = {};
 let counter = 98322;
 const PORT = process.env.PORT || 4545;
+const BASE_URL = process.env.BASE_URL;
+
+export const getOriginalURL = (shortCode) => {
+  return urlDatabase[shortCode] || null;
+};
 
 export const encode = async (req, res) => {
   try {
     const { originalURL } = req.body;
     const shortCode = (counter++).toString(36);
     urlDatabase[shortCode] = originalURL;
-    const shortURL = `http://localhost:${PORT}/${shortCode}`;
+    const shortURL = `${BASE_URL}${PORT}/${shortCode}`;
     res.status(200).json({ message: "Link shorten", shortURL });
   } catch (error) {
     console.log(error);
@@ -16,10 +21,6 @@ export const encode = async (req, res) => {
       error: error.message,
     });
   }
-};
-
-export const getOriginalURL = (shortCode) => {
-  return urlDatabase[shortCode] || null;
 };
 
 export const decode = async (req, res) => {
@@ -52,7 +53,7 @@ export const getStats = async (req, res) => {
     const stats = {
       originalURL,
       url_path,
-      encodedURL: `http://localhost:${PORT}/${url_path}`,
+      encodedURL: `${BASE_URL}${PORT}/${url_path}`,
     };
     res.status(200).json({ message: "fetch successful", stats });
   } catch (error) {
